@@ -11,3 +11,8 @@ echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://pack
 echo '***instalando o redis***'
 sudo apt-get update
 sudo apt-get install redis -y
+
+echo '***configurando o redis***'
+sudo rm -f /etc/redis/redis.conf
+sudo cp /opt/database/config/redis.conf /etc/redis/redis.conf
+sudo systemctl restart redis-server.service
