@@ -4,6 +4,9 @@
 sudo apt update
 sudo apt full-upgrade -y
 
+# Instalando o Ansible
+sudo apt install ansible -y
+
 # Instalando o PostgreSQL
 sudo apt install postgresql postgresql-contrib -y
 

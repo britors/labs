@@ -4,6 +4,9 @@ echo '***instalando ferramentas necessarias***'
 sudo apt-get update
 sudo apt-get install -y wget curl
 
+# Instalando o Ansible
+sudo apt install ansible -y
+
 echo '***adicionando pacotes do sql server***'
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 sudo add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/20.04/mssql-server-2022.list)"
@@ -28,7 +31,3 @@ source ~/.bash_profile
 
 echo '***rodando o script inicial***'
 sqlcmd -S localhost -U SA -P SqlS3rver@123 -i /opt/database/scripts/createdatabase.sql -o log_create.txt
-
-echo '***atualizando o SO***'
-sudo apt-get update
-sudo apt-get full-upgrade -y
