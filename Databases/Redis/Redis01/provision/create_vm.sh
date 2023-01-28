@@ -1,21 +1,18 @@
 #!/usr/bin/bash
 
-echo '***instalando ferramentas necessarias***'
-sudo apt-get update
-sudo apt-get install -y wget curl
-
-# Instalando o Ansible
-sudo apt install ansible -y
-
-echo '***adicionando pacotes do redis***'
+# Instalando o WGet, Ansible e o Curl
+sudo apt update
+sudo apt install -y wget curl ansible
+# Adiconando o repositório do Redis
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-
-echo '***instalando o redis***'
-sudo apt-get update
-sudo apt-get install redis -y
-
-echo '***configurando o redis***'
-sudo rm -f /etc/redis/redis.conf
-sudo cp /opt/database/config/redis.conf /etc/redis/redis.conf
+sudo apt update
+# Instalando o Redis
+sudo apt install redis -y
+# Habilitando acesso remoto ao Redis
+sudo sed -i 's/bind 127.0.0.1 -::1/bind 0.0.0.0/g' /etc/redis/redis.conf
+sudo sed -i 's/protected-mode yes/protected-mode no/g' /etc/redis/redis.conf
+# Reiniciando o Redis
 sudo systemctl restart redis-server.service
+# Atualizando o sistema
+sudo apt upgrade -y
