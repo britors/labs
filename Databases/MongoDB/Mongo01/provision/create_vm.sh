@@ -1,27 +1,25 @@
 #!/usr/bin/bash
 
 echo '***instalando ferramentas necessarias***'
-sudo apt-get update
-sudo apt-get install gnupg -y
+sudo apt update
+sudo apt install gnupg -y
 
 # Instalando o Ansible
 sudo apt install ansible -y
 
-
-echo '***adicionando pacotes do mongodb***'
+# Instalando o MongoDB
 wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-sudo apt-get update
-sudo apt-get install -y mongodb-org
+sudo apt update
+sudo apt install -y mongodb-org
 
-echo '***configurar o mongodb**'
-sudo rm -f /etc/mongod.conf 
-sudo cp /opt/database/config/mongod.conf  /etc/mongod.conf 
+# Configurando o MongoDB
+sudo sed -i 's/bindIp: 127.0.0.1/bindIp: 192.168.56.20/' /etc/mongod.conf
 
-echo '***habilitando o serviço do mongodb***'
+# Habilitando o MongoDB
 sudo systemctl enable mongod
 sudo systemctl restart mongod
 
-echo '***atualizando o SO***'
-sudo apt-get update
-sudo apt-get full-upgrade -y
+# Atualizando o sistema
+sudo apt update
+sudo apt full-upgrade -y
