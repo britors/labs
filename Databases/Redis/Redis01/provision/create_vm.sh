@@ -13,6 +13,7 @@ sudo apt install redis -y
 sudo sed -i 's/bind 127.0.0.1 -::1/bind 0.0.0.0/g' /etc/redis/redis.conf
 sudo sed -i 's/protected-mode yes/protected-mode no/g' /etc/redis/redis.conf
 # Reiniciando o Redis
+sudo systemctl enable redis-server.service
 sudo systemctl restart redis-server.service
 # Atualizando o sistema
 sudo apt upgrade -y
